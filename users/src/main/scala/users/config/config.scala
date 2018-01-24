@@ -21,7 +21,8 @@ object ExecutorsConfig {
 }
 
 case class ServicesConfig(
-    users: ServicesConfig.UsersConfig
+    users: ServicesConfig.UsersConfig,
+    http: ServicesConfig.HttpConfig
 )
 
 object ServicesConfig {
@@ -31,5 +32,10 @@ object ServicesConfig {
   case class UsersConfig(
       failureProbability: Double,
       timeoutProbability: Double
+  )
+
+  case class HttpConfig(
+      host: String,
+      port: Int
   )
 }

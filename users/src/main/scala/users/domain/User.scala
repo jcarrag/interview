@@ -12,7 +12,7 @@ final case class User(
     emailAddress: EmailAddress,
     password: Option[Password],
     metadata: User.Metadata
-) {
+) extends Domain {
   def status: User.Status =
     User.status(this)
 
@@ -48,7 +48,7 @@ object User {
       at: OffsetDateTime
   ): User = User(id, userName, emailAddress, password, Metadata(1, at, at, None, None))
 
-  final case class Id(value: String) extends AnyVal
+  final case class Id(value: String) extends AnyVal with Domain
 
   final case class Metadata(
       version: Int,

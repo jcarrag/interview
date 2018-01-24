@@ -1,3 +1,3 @@
 package users.domain
 
-final case class Password(value: String) extends AnyVal
+final case class Password(value: String) extends AnyVal with Domain

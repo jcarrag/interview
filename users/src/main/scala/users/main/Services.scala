@@ -35,4 +35,5 @@ final case class Services(
       config.users
     )
 
+  final val route = client.Http.route(userManagement)
 }

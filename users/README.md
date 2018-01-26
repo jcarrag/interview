@@ -13,10 +13,11 @@ This was fun! I learnt some new concepts (like defining an Algebra), and challen
  
  ### Continuing
  In terms of what I'd add next:
- 1. A logger.
- 2. Domain-level migrations. Something similar to [Stamina](https://github.com/scalapenos/stamina) which I found effective previously in an Akka app, which could be wired into the route level versioning.
- 3. Authentication, with session management, hashing & salting, and a way to determine and create admins. Also, type-level privilege restrictions.
- 4. Deployment strategy.
+ 1. Testing of API timeouts and 500 server errors. (These cases are handled, but not yet tested).
+ 2. A logger.
+ 3. Domain-level migrations. Something similar to [Stamina](https://github.com/scalapenos/stamina) which I found effective previously in an Akka app, which could be wired into the route level versioning.
+ 4. Authentication, with session management, hashing & salting, and a way to determine and create admins. Also, type-level privilege restrictions.
+ 5. Deployment strategy.
 
 ## Instructions
 From inside `interview/users/` run:

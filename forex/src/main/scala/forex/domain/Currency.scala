@@ -1,6 +1,11 @@
 package forex.domain
 
+import akka.http.scaladsl.unmarshalling.Unmarshaller
+
+import cats.syntax.either._
 import cats.Show
+import cats.data.NonEmptyList
+import cats.syntax.show._
 import io.circe._
 
 sealed trait Currency
@@ -27,6 +32,10 @@ object Currency {
     case USD ⇒ "USD"
   }
 
+  implicit val showPair: Show[(Currency, Currency)] = Show.show {
+    case (base, quote) => s"${base.show}${quote.show}"
+  }
+
   def fromString(s: String): Currency = s match {
     case "AUD" | "aud" ⇒ AUD
     case "CAD" | "cad" ⇒ CAD
@@ -39,7 +48,24 @@ object Currency {
     case "USD" | "usd" ⇒ USD
   }
 
+  val values: NonEmptyList[Currency] = NonEmptyList.fromListUnsafe(List(AUD, CAD, CHF, EUR, GBP, NZD, JPY, SGD, USD))
+
+  val combinations: NonEmptyList[Rate.Pair] =
+    for {
+      base  <- values
+      quote <- NonEmptyList.fromListUnsafe(values.filterNot(_ == base))
+    } yield Rate.Pair(base, quote)
+
   implicit val encoder: Encoder[Currency] =
     Encoder.instance[Currency] { show.show _ andThen Json.fromString }
 
+  implicit val decoder: Decoder[Currency] =
+    Decoder.decodeString.emap(str =>
+      Either
+        .catchNonFatal(fromString(str))
+        .leftMap(e => s"failed to decode $str due to, ${e.getMessage}")
+    )
+
+  implicit val currency =
+    Unmarshaller.strict[String, Currency](Currency.fromString)
 }

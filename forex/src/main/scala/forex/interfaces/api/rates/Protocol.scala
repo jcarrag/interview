@@ -22,6 +22,24 @@ object Protocol {
 
   object GetApiResponse {
     implicit val encoder: Encoder[GetApiResponse] = deriveEncoder[GetApiResponse]
+    implicit val decoder: Decoder[GetApiResponse] = deriveDecoder[GetApiResponse]
+  }
+
+  final case class ConvertApiRequest(
+      from: Currency,
+      to: Currency,
+      quantity: Quantity
+  )
+
+  final case class ConvertApiResponse(
+      value: Price,
+      text: Text,
+      timestamp: Timestamp
+  )
+
+  object ConvertApiResponse {
+    implicit val convertEncoder: Encoder[ConvertApiResponse] = deriveEncoder
+    implicit val convertDecoder: Decoder[ConvertApiResponse] = deriveDecoder
   }
 
 }

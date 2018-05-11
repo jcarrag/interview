@@ -7,12 +7,12 @@ object ApiExceptionHandler {
 
   def apply(): server.ExceptionHandler =
     server.ExceptionHandler {
-      case _: RatesError ⇒
+      case re: RatesError ⇒
         ctx ⇒
-          ctx.complete("Something went wrong in the rates process")
-      case _: Throwable ⇒
+          ctx.complete(s"Something went wrong in the rates process, possible cause is ${re.msg}")
+      case e: Throwable ⇒
         ctx ⇒
-          ctx.complete("Something else went wrong")
+          ctx.complete(s"Something else went wrong, ${e.getMessage}")
     }
 
 }

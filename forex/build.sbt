@@ -20,8 +20,9 @@ resolvers +=
 libraryDependencies ++= Seq(
   "com.github.pureconfig"          %% "pureconfig"           % "0.7.2",
   "com.softwaremill.quicklens"     %% "quicklens"            % "1.4.11",
-  "com.typesafe.akka"              %% "akka-actor"           % "2.4.19",
-  "com.typesafe.akka"              %% "akka-http"            % "10.0.10",
+  "com.typesafe.akka"              %% "akka-actor"           % "2.4.20",
+  "com.typesafe.akka"              %% "akka-http"            % "10.0.11",
+  "com.typesafe.akka"              %% "akka-http-caching"    % "10.0.11",
   "de.heikoseeberger"              %% "akka-http-circe"      % "1.18.1",
   "io.circe"                       %% "circe-core"           % "0.8.0",
   "io.circe"                       %% "circe-generic"        % "0.8.0",
@@ -34,6 +35,8 @@ libraryDependencies ++= Seq(
   "org.zalando"                    %% "grafter"              % "2.3.0",
   "ch.qos.logback"                 %  "logback-classic"      % "1.2.3",
   "com.typesafe.scala-logging"     %% "scala-logging"        % "3.7.2",
+  "org.scalatest"                  %% "scalatest"            % "3.0.4"        % Test,
+  "com.typesafe.akka"              %% "akka-http-testkit"    % "10.0.11"      % Test,
   compilerPlugin("org.spire-math"  %% "kind-projector"       % "0.9.4"),
   compilerPlugin("org.scalamacros" %% "paradise"             % "2.1.1" cross CrossVersion.full)
 )

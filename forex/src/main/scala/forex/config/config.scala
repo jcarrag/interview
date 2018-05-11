@@ -8,7 +8,8 @@ import scala.concurrent.duration.FiniteDuration
 case class ApplicationConfig(
     akka: AkkaConfig,
     api: ApiConfig,
-    executors: ExecutorsConfig
+    executors: ExecutorsConfig,
+    oneForge: OneForgeConfig
 )
 
 case class AkkaConfig(
@@ -23,4 +24,14 @@ case class ApiConfig(
 
 case class ExecutorsConfig(
     default: String
+)
+
+case class OneForgeConfig(
+    apiKey: String,
+    routes: RouteConfig
+
+)
+
+case class RouteConfig(
+    quote: String
 )

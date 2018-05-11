@@ -10,13 +10,16 @@ trait Directives {
 
   def getApiRequest: server.Directive1[GetApiRequest] =
     for {
-      from ← parameter('from.as(currency))
-      to ← parameter('to.as(currency))
+      from ← parameter('from.as[Currency])
+      to ← parameter('to.as[Currency])
     } yield GetApiRequest(from, to)
 
-  private val currency =
-    Unmarshaller.strict[String, Currency](Currency.fromString)
-
+  def convertApiRequest: server.Directive1[ConvertApiRequest] =
+    for {
+      from <- parameter('from.as[Currency])
+      to   <- parameter('to.as[Currency])
+      quantity <- parameter('quantity.as[Quantity])
+    } yield ConvertApiRequest(from, to, quantity)
 }
 
 object Directives extends Directives

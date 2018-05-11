@@ -21,12 +21,37 @@ case class Routes(
 
   lazy val route: server.Route =
     get {
-      getApiRequest { req ⇒
+      path("quote"){
+        getApiRequest { req ⇒
+          complete {
+            runApp(
+              Rates
+                .get(toGetRequest(req))
+                .map(_.map(toGetApiResponse(_)))
+            )
+          }
+        }
+      }
+    } ~
+    get {
+      path("convert") {
+        convertApiRequest { req =>
+          complete {
+            runApp(
+              Rates
+                .convert(toConvertRequest(req))
+                .map(_.map(toConvertApiResponse(_)))
+            )
+          }
+        }
+      }
+    } ~
+    get {
+      path("symbol") {
         complete {
           runApp(
             Rates
-              .get(toGetRequest(req))
-              .map(_.map(result ⇒ toGetApiResponse(result)))
+              .symbols
           )
         }
       }

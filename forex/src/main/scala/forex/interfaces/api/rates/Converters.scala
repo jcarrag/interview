@@ -9,7 +9,10 @@ object Converters {
   def toGetRequest(
       request: GetApiRequest
   ): GetRequest =
-    GetRequest(request.from, request.to)
+    GetRequest(
+      from = request.from,
+      to = request.to
+    )
 
   def toGetApiResponse(
       rate: Rate
@@ -19,6 +22,24 @@ object Converters {
       to = rate.pair.to,
       price = rate.price,
       timestamp = rate.timestamp
+    )
+
+  def toConvertRequest(
+      request: ConvertApiRequest
+  ): ConvertRequest =
+    ConvertRequest(
+      from = request.from,
+      to = request.to,
+      quantity = request.quantity
+    )
+
+  def toConvertApiResponse(
+    conversion: Conversion
+  ): ConvertApiResponse =
+    ConvertApiResponse(
+      value = conversion.value,
+      text = conversion.text,
+      timestamp = conversion.timestamp
     )
 
 }

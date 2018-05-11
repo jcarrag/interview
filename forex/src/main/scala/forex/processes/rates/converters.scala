@@ -6,6 +6,7 @@ package object converters {
   import messages._
 
   def toProcessError[T <: Throwable](t: T): Error = t match {
+    case OneForgeError.Custom(msg) => Error.Custom(msg)
     case OneForgeError.Generic     ⇒ Error.Generic
     case OneForgeError.System(err) ⇒ Error.System(err)
     case e: Error                  ⇒ e
